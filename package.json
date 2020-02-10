@@ -2,7 +2,7 @@
   "name": "cloudformation-ec2",
   "version": "1.0.0",
   "scripts": {
-    "deploy": "aws s3 sync template/ s3://cf-template-acloudguru-2020 --profile acloudguru "
+    "deploy": "aws s3 sync template/ s3://cf-template-acloudguru-2020 --profile acloudguru"
   },
   "repository": "git@github.com:PierreVaut/cloudformation-ec2.git",
   "author": "pierrevautherin <pierre.vautherin@photobox.com>",

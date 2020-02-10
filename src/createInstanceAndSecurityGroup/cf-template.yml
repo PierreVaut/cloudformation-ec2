@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 
-Description: Template to create an EC2 instance with existing Security Group and enable SSH
+Description: Template to create an EC2 instance and enable SSH
 
 Parameters: 
   KeyName:
@@ -13,15 +13,25 @@ Resources:
     Type: 'AWS::EC2::Instance'
     Properties:
       InstanceType: t2.micro
-      ImageId: ami-062f7200baf2fa504 # Amazon Linux 2 AMI (us-east-1)
+      ImageId: ami-0de53d8956e8dcf80
       KeyName: !Ref KeyName
-      SecurityGroupIds:
-        - sg-0ad7ef5894845aca2 #sshOnlySecurityGroup (us-east-1)
-
+      SecurityGroups:
+        - !Ref InstanceSecurityGroup
       Tags:
         - Key: Name
           Value: My CF Instance
           
+  InstanceSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupName: MyDMZSecurityGroup
+      GroupDescription: Enable SSH access via port 22
+      SecurityGroupIngress:
+        IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 0.0.0.0/0
+
 Outputs: 
   InstanceID:
     Description: The Instance ID
